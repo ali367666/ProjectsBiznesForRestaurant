@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="DTOs\WareHouseStocksDto\StockCategory\" />
+    <Folder Include="DTOs\WareHouseStocksDto\WareHouseStock\" />
+    <Folder Include="DTOs\WareHouseStocksDto\WareHouse\" />
+    <Folder Include="DTOs\WareHouseStocksDto\StockItem\" />
+    <Folder Include="DTOs\WareHouseStocksDto\Unit\" />
+    <Folder Include="Menus\StockMenu\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="Services\HrService\EmployeePositionServices\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.6.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.22" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.22" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.22">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>
