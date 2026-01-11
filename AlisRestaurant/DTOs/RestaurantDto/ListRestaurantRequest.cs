@@ -1,15 +1,15 @@
-﻿//using AlisRestaurant.Data.Entities.WarehouseAndStock;
+﻿using AlisRestaurant.Data.Entities;
+//using AlisRestaurant.Data.Entities.WarehouseAndStock;
 
-namespace AlisRestaurant.Data.Entities;
+namespace AlisRestaurant.DTOs.RestaurantDto;
 
-public class Restaurant
+public  class ListRestaurantRequest
 {
-    public int Id { get; set; }
     public string Name { get; set; }
     public string Address { get; set; }
     public string PhoneNumber { get; set; }
     public string Email { get; set; }
     public int CompanyId { get; set; }
     public Company Company { get; set; }
-   // public ICollection<WareHouse> Warehouses { get; set; }
+    //public ICollection<WareHouse> Warehouses { get; set; }
 }

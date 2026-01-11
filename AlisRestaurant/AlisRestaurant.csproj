@@ -15,7 +15,6 @@
     <Folder Include="DTOs\WareHouseStocksDto\Unit\" />
     <Folder Include="Menus\StockMenu\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Services\HrService\EmployeePositionServices\" />
   </ItemGroup>
 
   <ItemGroup>

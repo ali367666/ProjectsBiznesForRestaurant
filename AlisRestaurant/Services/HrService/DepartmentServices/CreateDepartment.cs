@@ -32,7 +32,7 @@ public class CreateDepartment
 
         // 3️⃣ Validator çağır
         var validator = new CreateDepartmentValidation(_dbContext);
-        FluentValidation.Results.ValidationResult result = validator.Validate(dto);
+        var result = validator.Validate(dto);
 
         if (!result.IsValid)
         {

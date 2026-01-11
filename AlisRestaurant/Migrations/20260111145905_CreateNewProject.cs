@@ -6,11 +6,27 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AlisRestaurant.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateNewPorjects : Migration
+    public partial class CreateNewProject : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Company",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Company", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Department",
                 columns: table => new
@@ -41,6 +57,29 @@ namespace AlisRestaurant.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Employee", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Restaurant",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Restaurant", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Restaurant_Company_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Company",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -78,7 +117,6 @@ namespace AlisRestaurant.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EmployeePosition", x => x.Id);
-                    table.CheckConstraint("CK_Employee_AssignedDate_Range", "[AssignedDate] BETWEEN DATEADD(day, -3, CAST(GETDATE() AS date)) AND CAST(GETDATE() AS date)");
                     table.ForeignKey(
                         name: "FK_EmployeePosition_Employee_EmployeeId",
                         column: x => x.EmployeeId,
@@ -137,6 +175,11 @@ namespace AlisRestaurant.Migrations
                 table: "Position",
                 column: "Name",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Restaurant_CompanyId",
+                table: "Restaurant",
+                column: "CompanyId");
         }
 
         /// <inheritdoc />
@@ -146,10 +189,16 @@ namespace AlisRestaurant.Migrations
                 name: "EmployeePosition");
 
             migrationBuilder.DropTable(
+                name: "Restaurant");
+
+            migrationBuilder.DropTable(
                 name: "Employee");
 
             migrationBuilder.DropTable(
                 name: "Position");
+
+            migrationBuilder.DropTable(
+                name: "Company");
 
             migrationBuilder.DropTable(
                 name: "Department");

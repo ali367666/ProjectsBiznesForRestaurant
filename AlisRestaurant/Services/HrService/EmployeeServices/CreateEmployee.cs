@@ -26,6 +26,7 @@ public class CreateEmployee
         // Ad və soyad
         Console.Write("Employee adı daxil edin: ");
         var firstName = Console.ReadLine()!;
+
         Console.Write("Employee soyadı daxil edin: ");
         var lastName = Console.ReadLine()!;
         var fullName = string.Join(" ", new[] { firstName, lastName }.Where(s => !string.IsNullOrWhiteSpace(s)));
@@ -116,9 +117,8 @@ public class CreateEmployee
             IsActive = true
         };
     
-
-        /*_context.Employees.Add(employeePosition);
-        _context.SaveChanges();*/
+        _context.EmployeePositions.Add(employeePosition);
+        _context.SaveChanges();
 
         Console.WriteLine("\nEmployee uğurla əlavə olundu!");
         Console.WriteLine("Davam etmək üçün Enter basın...");

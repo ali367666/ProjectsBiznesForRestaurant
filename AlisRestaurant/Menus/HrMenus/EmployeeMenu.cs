@@ -20,23 +20,23 @@ public class EmployeeMenu
             Console.WriteLine("1. Employee List");
             Console.WriteLine("2. Add Employee");
             Console.WriteLine("3. Employee dəyiş");
-            Console.WriteLine("4. Employee-ləri göstər");
+            Console.WriteLine("4. Employee-ləri sil");
             Console.WriteLine("0. Geri");
             Console.Write("Seçiminizi edin: ");
             var choice = Console.ReadLine()?.Trim();
             switch (choice)
             {
                 case "1":
-                    _createEmployee.Execute();
+                    _listEmployee.Execute();
                     break;
                 case "2":
-                    _deleteEmployee.Execute();
+                    _createEmployee.Execute();
                     break;
                 case "3":
                     _updateEmployee.Execute();
                     break;
                 case "4":
-                    _listEmployee.Execute();
+                    _deleteEmployee.Execute();
                     break;
                 case "0":
                     exit = true;

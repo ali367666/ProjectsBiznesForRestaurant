@@ -16,13 +16,9 @@ public class EmployeePositionConfiguration : IEntityTypeConfiguration<EmployeePo
                .IsRequired();
         builder.Property(e => e.PositionId)
                .IsRequired();
-        builder.Property(e => e.AssignedDate)
-               .IsRequired();
+        builder.Property(e => e.AssignedDate);
 
-        builder.ToTable(t => t.HasCheckConstraint(
-    "CK_Employee_AssignedDate_Range",
-    "[AssignedDate] BETWEEN DATEADD(day, -3, CAST(GETDATE() AS date)) AND CAST(GETDATE() AS date)"
-                   ));
+        
 
         builder.HasOne(ep => ep.Employee)
                .WithMany(e => e.EmployeePositions) 

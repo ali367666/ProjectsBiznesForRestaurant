@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlisRestaurant.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260104162703_CreateNewPorjects")]
-    partial class CreateNewPorjects
+    [Migration("20260111145905_CreateNewProject")]
+    partial class CreateNewProject
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,39 @@ namespace AlisRestaurant.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("AlisRestaurant.Data.Entities.Company", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Company", (string)null);
+                });
 
             modelBuilder.Entity("AlisRestaurant.Data.Entities.HR.Department", b =>
                 {
@@ -128,10 +161,7 @@ namespace AlisRestaurant.Migrations
 
                     b.HasIndex("PositionId");
 
-                    b.ToTable("EmployeePosition", null, t =>
-                        {
-                            t.HasCheckConstraint("CK_Employee_AssignedDate_Range", "[AssignedDate] BETWEEN DATEADD(day, -3, CAST(GETDATE() AS date)) AND CAST(GETDATE() AS date)");
-                        });
+                    b.ToTable("EmployeePosition", (string)null);
                 });
 
             modelBuilder.Entity("AlisRestaurant.Data.Entities.HR.Position", b =>
@@ -158,6 +188,44 @@ namespace AlisRestaurant.Migrations
                         .IsUnique();
 
                     b.ToTable("Position", (string)null);
+                });
+
+            modelBuilder.Entity("AlisRestaurant.Data.Entities.Restaurant", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("Restaurant", (string)null);
                 });
 
             modelBuilder.Entity("AlisRestaurant.Data.Entities.HR.EmployeePosition", b =>
@@ -188,6 +256,22 @@ namespace AlisRestaurant.Migrations
                         .IsRequired();
 
                     b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("AlisRestaurant.Data.Entities.Restaurant", b =>
+                {
+                    b.HasOne("AlisRestaurant.Data.Entities.Company", "Company")
+                        .WithMany("Restaurants")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("AlisRestaurant.Data.Entities.Company", b =>
+                {
+                    b.Navigation("Restaurants");
                 });
 
             modelBuilder.Entity("AlisRestaurant.Data.Entities.HR.Department", b =>

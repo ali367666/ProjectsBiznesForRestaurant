@@ -1,4 +1,5 @@
-﻿using AlisRestaurant.Data.Entities.HR;
+﻿using AlisRestaurant.Data.Entities;
+using AlisRestaurant.Data.Entities.HR;
 using Microsoft.EntityFrameworkCore;
 
 namespace AlisRestaurant.Data.Context;
@@ -22,4 +23,7 @@ public class AppDbContext:DbContext
     public DbSet<Position> Positions { get; set; }
     public DbSet<EmployeePosition> EmployeePositions { get; set; }
     public DbSet<Employee> Employees { get; set; }
+    public DbSet<Company> Companies { get; set; }
+    public DbSet<Restaurant> Restaurants { get; set; }
+
 }
